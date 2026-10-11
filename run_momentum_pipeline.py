@@ -8,9 +8,7 @@ from datetime import datetime
 # FOLDER CONTAINING ALL THREE PYTHON PROGRAMS
 # ============================================
 
-BASE_FOLDER = Path(
-    r"C:\Users\DELL\Desktop\Automation\Momemtum Trading FW"
-)
+BASE_FOLDER = Path(__file__).resolve().parent
 
 # ============================================
 # RUN ORDER
