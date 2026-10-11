@@ -1,0 +1,36 @@
+name: NC Wealth Daily Momentum
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 12:00 UTC = 17:30 IST; GitHub scheduled jobs can be delayed.
+    - cron: '0 12 * * 1-5'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: daily-momentum
+  cancel-in-progress: false
+
+jobs:
+  update-watchlists:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Download and calculate
+        run: python -u run_momentum_pipeline.py
+      - name: Publish to Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: python -u upload_to_supabase.py
