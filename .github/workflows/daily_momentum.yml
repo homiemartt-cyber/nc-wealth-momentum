@@ -1,10 +1,9 @@
 name: NC Wealth Daily Momentum
 
 on:
-  workflow_dispatch:
   schedule:
-    # 12:00 UTC = 17:30 IST; GitHub scheduled jobs can be delayed.
-    - cron: '0 12 * * 1-5'
+    - cron: '30 11 * * 1-5'
+  workflow_dispatch:
 
 permissions:
   contents: read
