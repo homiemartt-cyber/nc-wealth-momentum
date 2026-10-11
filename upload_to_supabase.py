@@ -32,7 +32,9 @@ if not price_files:
     raise RuntimeError('No daily price files available to publish')
 
 for file in price_files:
-    remote = f'daily-price-data/{file.name}'
+    safe_filename = file.name.replace("^", "")
+    remote = f'daily-price-data/{safe_filename}'
+
     client.storage.from_(BUCKET).upload(remote, file.read_bytes(),
         {'content-type':'text/csv', 'upsert':'true'})
     print('Uploaded', remote, flush=True)
