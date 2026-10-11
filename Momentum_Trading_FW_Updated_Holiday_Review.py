@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 import pandas as pd
 import numpy as np
 
@@ -22,17 +23,10 @@ import numpy as np
 #                    CONFIGURATION
 # ============================================================
 
-STOCK_LIST_FILE = (
-    r"C:\Users\DELL\Desktop\Automation\Momemtum Trading FW\Futures Stock List.csv"
-)
-
-DATA_FOLDER = (
-    r"C:\Users\DELL\Desktop\Automation\Momemtum Trading FW\MTF_FUTstocks_data\daily"
-)
-
-OUTPUT_FOLDER = (
-    r"C:\Users\DELL\Desktop\Automation\Momemtum Trading FW"
-)
+BASE_DIR = Path(__file__).resolve().parent
+STOCK_LIST_FILE = str(BASE_DIR / "Futures Stock List.csv")
+DATA_FOLDER = str(BASE_DIR / "MTF_FUTstocks_data" / "daily")
+OUTPUT_FOLDER = str(BASE_DIR)
 
 INDEX_SYMBOL = "^CRSLDX"
 
